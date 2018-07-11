@@ -1,0 +1,26 @@
+project(OSGQt)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(3RDPARTY_DIR "C:/3rdpart")
+set(CMAKE_PREFIX ${3RDPARTY_DIR}/osgqt ${3RDPARTY_DIR}/gtest)
+find_package(Qt5Widgets)
+find_package(Qt5Core)
+find_package(Qt5Gui)
+find_package(OpenSceneGraph)
+find_package(osgqt)
+find_package(gtest)
+find_package(Qt5OpenGL)
+
+
+#link_libraries(
+#${OPENSCENEGRAPH_LIBRARY_DIR}
+#)
+include_directories(
+${PROJECT_SOURCE_DIR}/include
+${OPENSCENEGRAPH_INCLUDE_DIRS}
+${Qt5Widgets_INCLUDE_DIRS}
+${OSGQT_INCLUDE_DIR}
+${Qt5OpenGL_INCLUDE_DIRS}
+)
+
+add_subdirectory(src)

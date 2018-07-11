@@ -1,0 +1,5 @@
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
+file(GLOB OSGL_HEADERS ${PROJECT_SOURCE_DIR}/include/OSGLayer/*.h)
+file(GLOB OSGL_CPP *.cpp)
+add_library(OSGLayerLib STATIC ${OSGL_CPP} ${OSGL_HEADERS})
+target_link_libraries(OSGLayerLib ${OPENSCENEGRAPH_LIBRARIES} osgDB osgGA osgViewer osgWidget ${OSGQT_LIBRARY})

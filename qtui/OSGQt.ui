@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OSGQt</class>
+ <widget class="QMainWindow" name="OSGQt">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="QWidget_LockWidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="QMenu_File">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="QAction_Open"/>
+    <addaction name="QAction_CLose"/>
+   </widget>
+   <widget class="QMenu" name="QMenu_Control">
+    <property name="title">
+     <string>Control</string>
+    </property>
+    <addaction name="QAction_Stretching"/>
+    <addaction name="QAction_Rotate"/>
+    <addaction name="QAction_Translation"/>
+   </widget>
+   <addaction name="QMenu_File"/>
+   <addaction name="QMenu_Control"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="QAction_Open">
+   <property name="text">
+    <string>OpenFile</string>
+   </property>
+  </action>
+  <action name="QAction_CLose">
+   <property name="text">
+    <string>CLoseFile</string>
+   </property>
+  </action>
+  <action name="QAction_Stretching">
+   <property name="text">
+    <string>Stretching</string>
+   </property>
+  </action>
+  <action name="QAction_Rotate">
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+  </action>
+  <action name="QAction_Translation">
+   <property name="text">
+    <string>Translation</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
