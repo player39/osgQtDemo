@@ -1,0 +1,3 @@
+# osgQtDemo
+今天osgqt的逻辑基本上理顺了。cmake那里可能还有点问题 我用debug构建的时候不知道为什么他链接的一直是osg.dll不是debug版的runtime library那里也设置过了
+还是release版。项目里面可能比较乱。测试时候写的我只注释掉了还没删
