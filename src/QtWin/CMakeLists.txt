@@ -12,5 +12,5 @@ add_executable(QtWin ${HEADER_FILES} ${SOURCE_FILES} ${WRAP_FILES} ${QRC_FILES})
 source_group(uis FILES ${UI_FILES})
 source_group(qrcs FILES ${QRC_FILES})
 source_group("Generated Files" FILES ${RCC} ${WRAP_FILES})
-MESSAGE(${OPENSCENEGRAPH_LIBRARIES} ${OSG_LIBRARY_DEBUG} ${OPENTHREADS_LIBRARY_DEBUG})
-target_link_libraries(QtWin Qt5::Widgets Qt5::Core Qt5::Gui Qt5::OpenGL OSGLayerLib)
+
+target_link_libraries(QtWin Qt5::Gui Qt5::OpenGL OSGLayerLib)

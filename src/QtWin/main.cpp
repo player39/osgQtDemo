@@ -1,5 +1,5 @@
 #include "QtWin/OSGQtWindow.h"
-/*
+
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #include <osgDB/ReadFile>
@@ -11,7 +11,7 @@
 #include <QApplication>
 #include <QtWidgets/QMainWindow>
 
-
+/*
 osgQt::GraphicsWindowQt* createGraphicsWindow(int x, int y, int w, int h)
 {
   osg::ref_ptr<osg::GraphicsContext::Traits> traits = new osg::GraphicsContext::Traits;
@@ -79,15 +79,16 @@ protected:
 int main(int argc, char** argv)
 {
   QApplication app(argc, argv);
-  /*osgQt::GraphicsWindowQt* gw = createGraphicsWindow(50, 50, 640, 480);
+ /* osgQt::GraphicsWindowQt* gw = createGraphicsWindow(50, 50, 640, 480);
   osg::Node* scene = osgDB::readNodeFile("C://Users//Administrator//Downloads//OpenSceneGraph-Data-3.0.0//OpenSceneGraph-Data-3.0.0//cow.osg");
 
   ViewerWidget* widget = new ViewerWidget(gw, scene);
   widget->setGeometry(100, 100, 800, 600);
   widget->show();*/
-  
-  jyOSGQtWindow *_pQtWin = new jyOSGQtWindow();
-  _pQtWin->show();
+  jyOSGQtWindow osgwin = new jyOSGQtWindow();
+  osgwin.show();
+ // jyOSGQtWindow *_pQtWin = new jyOSGQtWindow();
+ // _pQtWin->show();
   return app.exec();
 }
 
