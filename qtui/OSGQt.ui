@@ -23,23 +23,13 @@
      <height>18</height>
     </rect>
    </property>
-   <widget class="QMenu" name="QMenu_File">
+   <widget class="QMenu" name="menuTranslate">
     <property name="title">
-     <string>File</string>
+     <string>Translate</string>
     </property>
-    <addaction name="QAction_Open"/>
-    <addaction name="QAction_CLose"/>
+    <addaction name="QAction_Translate"/>
    </widget>
-   <widget class="QMenu" name="QMenu_Control">
-    <property name="title">
-     <string>Control</string>
-    </property>
-    <addaction name="QAction_Stretching"/>
-    <addaction name="QAction_Rotate"/>
-    <addaction name="QAction_Translation"/>
-   </widget>
-   <addaction name="QMenu_File"/>
-   <addaction name="QMenu_Control"/>
+   <addaction name="menuTranslate"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="QAction_Open">
@@ -65,6 +55,11 @@
   <action name="QAction_Translation">
    <property name="text">
     <string>Translation</string>
+   </property>
+  </action>
+  <action name="QAction_Translate">
+   <property name="text">
+    <string>Translate</string>
    </property>
   </action>
  </widget>

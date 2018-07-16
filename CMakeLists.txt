@@ -10,8 +10,7 @@ find_package(OpenSceneGraph 3.0.0 REQUIRED osgDB osgGA osgUtil osgText osgViewer
 find_package(osgqt)
 find_package(gtest)
 find_package(Qt5OpenGL)
-
-
+#find_package(Boost)
 #link_libraries(
 #${OPENSCENEGRAPH_LIBRARY_DIR}
 #)
@@ -21,6 +20,7 @@ ${OPENSCENEGRAPH_INCLUDE_DIRS}
 ${Qt5Widgets_INCLUDE_DIRS}
 ${OSGQT_INCLUDE_DIR}
 ${Qt5OpenGL_INCLUDE_DIRS}
+C:\SourceCode\boost_1_67_0_s
 )
 
 add_subdirectory(src)

@@ -1,6 +1,9 @@
 #include "..\..\include\OSGLayer\ControlShow.h"
 
+
+
 jyControlShow::jyControlShow(QObject *parent) {
+ // connectFun(stretchingChange);
   
 }
 
@@ -31,11 +34,15 @@ osgQt::GraphicsWindowQt * jyControlShow::CreatGraphicsWinQt(int x, int y, int w,
  // return new osgQt::GraphicsWindowQt(traits.get());
   return m_pGraphics;
 }
-
-QWidget * jyControlShow::addViewWidget(osg::Node * modelData)
+//负责显示这一层，传入的参数从数据层获取应该会变成group或者translate
+QWidget * jyControlShow::addViewWidget()
 {
+  //----test
+  m_pModel = new jyOSGModel();
+//  modelData = m_pModel->returnRoot();
+  //-------------------
   m_pNode = new osg::Node;
-  m_pNode = modelData;
+  m_pNode = m_pModel->returnRoot();
   m_pNo1Viewer = new osgViewer::Viewer();
   const osgQt::GraphicsWindowQt::Traits *traits = m_pGraphics->getTraits();
   osg::Camera *_temCamera = m_pNo1Viewer->getCamera();
@@ -43,46 +50,79 @@ QWidget * jyControlShow::addViewWidget(osg::Node * modelData)
   _temCamera->setClearColor(osg::Vec4(0.2,0.2,0.6,1.0));
   _temCamera->setViewport(0, 0, traits->width, traits->height);
   //--
+  /*
   osg::Vec3d eye, center, up;
   _temCamera->getViewMatrixAsLookAt(eye, center, up);
   eye=osg::Vec3d(0.0,-20.0,0.0);
   center=osg::Vec3d(0.0,0.0,0.0);
   up=osg::Vec3d(0.0,0.0,1.0);
   _temCamera->setViewMatrixAsLookAt(eye, center, up);
-  
+  */
   m_pNo1Viewer->setSceneData(m_pNode);
+  //设置事件处理
   m_pNo1Viewer->addEventHandler(new osgViewer::StatsHandler);
-  //m_pNo1Viewer->setCameraManipulator(new osgGA::TrackballManipulator);
+  //设置漫游器
+  m_pNo1Viewer->setCameraManipulator(new osgGA::TrackballManipulator);
+  //设置线程模式
   m_pNo1Viewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
+
+  //绑定成员变量就是这个格式
+  m_conStretching = m_pModel->returnModelData()->m_sStrenchingSignal.connect(boost::bind(&jyControlShow::stretchingChange,this));
+  m_conTranslate = m_pModel->returnModelData()->m_tTranslateSignal.connect(boost::bind(&jyControlShow::translateChange, this));
+  m_conRotate = m_pModel->returnModelData()->m_rRotateSignal.connect(boost::bind(&jyControlShow::rotateChange,this));
+  m_conreset = m_pModel->returnModelData()->m_Reset.connect(boost::bind(&jyControlShow::paramReset, this));
   return m_pGraphics->getGLWidget();
 }
-
+//将Viewer显示出来
 void jyControlShow::flashWindow()
 {
   m_pNo1Viewer->frame();
 }
-
+/*
 void jyControlShow::changeGraphics()
 {
  // osg::Node *test = new osg::Node;
   m_pNode = osgDB::readNodeFile("C://Users//Administrator//Downloads//OpenSceneGraph-Data-3.0.0//OpenSceneGraph-Data-3.0.0//cow.osg");
   m_pNo1Viewer->setSceneData(m_pNode);
+}*/
+jyOSGModel * jyControlShow::returnOSGModel()
+{
+  return m_pModel;
 }
+/*
+boost::signals2::connection jyControlShow::connectFun(const slotType& slotfunction)
+{
+  mConnection = (m_pModel->returnModelData()->m_sStrenchingSignal).connect(slotfunction);
+  return boost::signals2::connection();
+}*/
 //先缩放后旋转再平移
+//数据模型顶层应该是一个MatrixTransform作为根
+
+
 void jyControlShow::stretchingChange()
 {
-  osg::ref_ptr<osg::MatrixTransform> _pTrans = new osg::MatrixTransform();
-  _pTrans->setMatrix(osg::Matrix::scale(1, 1, 0.5));
-  _pTrans->addChild(m_pNode.get());
-  m_pNo1Viewer->setSceneData(_pTrans.get());
-
+  //得到根节点的变换矩阵，将原先的变换矩阵乘新得到的变换矩阵实现图形变换
+  osg::ref_ptr<osg::MatrixTransform> _pTrans = m_pModel->returnRoot();
+  _pTrans->setMatrix(_pTrans->getMatrix()*osg::Matrix::scale(m_pModel->returnModelData()->returnStrenching()._x, m_pModel->returnModelData()->returnStrenching()._y, m_pModel->returnModelData()->returnStrenching()._z));
 }
 
-void jyControlShow::RotateChange()
+void jyControlShow::rotateChange()
 {
+  osg::ref_ptr<osg::MatrixTransform> _pTrans = m_pModel->returnRoot();
+  _pTrans->setMatrix(_pTrans->getMatrix()*osg::Matrix::rotate(osg::DegreesToRadians(m_pModel->returnModelData()->returnRotate()._angle), m_pModel->returnModelData()->returnRotate()._x, m_pModel->returnModelData()->returnRotate()._y, m_pModel->returnModelData()->returnRotate()._z));
 }
 
-void jyControlShow::TranslatipnChange()
+void jyControlShow::translateChange()
 {
+  osg::ref_ptr<osg::MatrixTransform> _pTrans = m_pModel->returnRoot();
+  _pTrans->setMatrix(_pTrans->getMatrix()*osg::Matrix::translate(m_pModel->returnModelData()->returntranslate()._x, m_pModel->returnModelData()->returntranslate()._y, m_pModel->returnModelData()->returntranslate()._z));
 }
+
+void jyControlShow::paramReset()
+{
+  osg::ref_ptr<osg::MatrixTransform> _pTrans = m_pModel->returnRoot();
+  osg::Matrix _reset = osg::Matrix();
+  _pTrans->setMatrix(_reset);
+}
+
 
