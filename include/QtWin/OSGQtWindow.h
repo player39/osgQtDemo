@@ -8,6 +8,7 @@
 #include "ui_OSGQt.h"
 #include "OSGLayer/ControlShow.h"
 #include "QtWin/ParamWidget.h"
+#include "OSGLayer/ControlRectangle.h"
 
 class jyOSGQtWindow :public QMainWindow
 {
@@ -23,7 +24,7 @@ private:
   QTimer *m_pFlushTime=NULL;
   Ui::OSGQt ui;
   //显示控制类的指针
-  jyControlShow *m_pControl=NULL;
+  jyControlRectangle *m_pControl=NULL;
   //translate窗口控制旋转平移缩放
   jyParamWidget *m_pTranslateWidget=NULL;
 

@@ -5,13 +5,15 @@ jyOSGQtWindow::jyOSGQtWindow(QWidget *parent)
   //初始化将graphics设置到widget
   ui.setupUi(this);
   //实例化显示控制类
-  m_pControl = new jyControlShow();
+  m_pControl = new jyControlRectangle();
   QVBoxLayout *_centralLayout = new QVBoxLayout();
   //创建一个GraphicsWinQt
   m_pControl->CreatGraphicsWinQt(0, 0, 800, 600, "mainViewer", false);
   //addViewidget会返回一个GLWidget
   _centralLayout->addWidget(m_pControl->addViewWidget());
   ui.QWidget_LockWidget->setLayout(_centralLayout);
+
+  m_pControl->Signals2Connect();
   //刷新画面
   m_pFlushTime = new QTimer();
   m_pFlushTime->start(40);

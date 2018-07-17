@@ -1,5 +1,6 @@
 #ifndef _OSGMODEL_H
 #define _OSGMODEL_H
+
 #include <osg/Node>
 #include <osg/Geode>
 #include <osg/Geometry>

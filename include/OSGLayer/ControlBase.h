@@ -1,6 +1,5 @@
-#ifndef _CONTROLSHOW_H
-#define _CONTROLSHOW_H
-//#define _SCL_SECURE_NO_WARNINGS
+#ifndef _CONTROLBASE_H
+#define _CONTROLBASE_H
 
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
@@ -16,16 +15,13 @@
 #include <boost/function.hpp>
 #include "OSGLayer/OSGModel.h"
 
-typedef boost::signals2::signal<void()>::slot_type slotType;
-
-class jyControlShow :public QObject
+class jyControlBase
 {
 
-  Q_OBJECT
-
 public:
-  jyControlShow(QObject *parent = Q_NULLPTR);
-  osgQt::GraphicsWindowQt* CreatGraphicsWinQt(int x, int y, int w, int h,const std::string& name="",bool windowDecoration=false);
+  jyControlBase();
+  virtual void Signals2Connect()=0;
+  osgQt::GraphicsWindowQt* CreatGraphicsWinQt(int x, int y, int w, int h, const std::string& name = "", bool windowDecoration = false);
   QWidget *addViewWidget();
   void flashWindow();
   //提供qt层访问底层的接口
@@ -37,8 +33,8 @@ public:
   void paramReset();
 
 private:
-  osgViewer::Viewer *m_pNo1Viewer=NULL;
-  osg::ref_ptr<osgQt::GraphicsWindowQt> m_pGraphics=NULL;
+  osgViewer::Viewer *m_pNo1Viewer = NULL;
+  osg::ref_ptr<osgQt::GraphicsWindowQt> m_pGraphics = NULL;
   osg::ref_ptr<osg::Node> m_pNode = NULL;
   //四个连接
   boost::signals2::connection m_cConStretching;
@@ -47,7 +43,6 @@ private:
   boost::signals2::connection m_cConreset;
   //存放用于显示的osg模型
   jyOSGModel *m_pModel;
-
 };
 
-#endif // !_CONTROLSHOW_H
+#endif // !_CONTROLBASE_H

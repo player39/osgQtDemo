@@ -1,5 +1,6 @@
 #ifndef _PARAMWIDGET_H
 #define _PARAMWIDGET_H
+//#define _SCL_SECURE_NO_WARNINGS
 
 #include<QtWidgets/QWidget>
 #include<QtWidgets/QLineEdit>

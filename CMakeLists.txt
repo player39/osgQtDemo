@@ -1,4 +1,5 @@
 project(OSGQt)
+add_definitions(-D _SCL_SECURE_NO_WARNINGS)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(3RDPARTY_DIR "C:/3rdpart")

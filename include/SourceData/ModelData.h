@@ -1,5 +1,6 @@
 #ifndef _MODELDATA_H
 #define _MODELDATA_H
+//#define _SCL_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <boost/signals2.hpp>
