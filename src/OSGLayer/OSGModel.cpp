@@ -4,7 +4,6 @@ jyOSGModel::jyOSGModel()
 {
   m_pModelData = new jyModelData();
   geode = new osg::Geode;
-//  geode->addDrawable(_geom.get());
   m_pRoot = new osg::MatrixTransform();
   m_pRoot->addChild(geode);
   //第一面
@@ -23,8 +22,8 @@ jyOSGModel::jyOSGModel()
 
   _geom1->setNormalBinding(osg::Geometry::BIND_OVERALL);//将法线进行绑定
 
-  //设置顶点的关联方式，这里是Quad方式，总共有这么些方式：POINTS,LINES,LINE_STRIP,LINE_LOOP,TRIANGLES,TRIANGLE_STRIP,TRIANGLE_FAN,QUADS,QUAD_STRIP,POLYGON
-
+  //设置顶点的关联方式，QUADS代表矩形用4个顶点生成矩形，总共有这么些方式：POINTS,LINES,LINE_STRIP,LINE_LOOP,TRIANGLES,TRIANGLE_STRIP,TRIANGLE_FAN,QUADS,QUAD_STRIP,POLYGON
+  
   _geom1->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS, 0, 4));
 
   osg::ref_ptr<osg::Vec4Array> _c1 = new osg::Vec4Array();
@@ -149,79 +148,6 @@ jyOSGModel::jyOSGModel()
   _geom6->setColorArray(_c6.get());
   _geom6->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
   geode->addDrawable(_geom6.get());
-  /*
-  
-  for (int j=0;j<3;++j)
-  {
-    float flag[3] = { 1.0,1.0,1.0 };
-    flag[j] = -1.0;
-    for (int i=0;i<4;++i)
-    {
-     _surface->push_back(osg::Vec3(m_pModelData->m_pPoint[j][i]._x, m_pModelData->m_pPoint[j][i]._y, m_pModelData->m_pPoint[j][i]._z));
-    }
-    for (int i = 0; i < 4; ++i)
-    {
-      _surface->push_back(osg::Vec3(m_pModelData->m_pPoint[j][i]._x * flag[0], m_pModelData->m_pPoint[j][i]._y * flag[1], m_pModelData->m_pPoint[j][i]._z * flag[2]));
-    }
-  }
-  _geom->setVertexArray(_surface.get());
-  
-  /*
-  v->push_back(osg::Vec3(-1.0, -1.0, -1.0));
-  v->push_back(osg::Vec3( 1.0, -1.0, -1.0));
-  v->push_back(osg::Vec3( 1.0, -1.0,  1.0));
-  v->push_back(osg::Vec3(-1.0, -1.0, 1.0));
-
-  v->push_back(osg::Vec3(-1.0,  1.0, -1.0));
-  v->push_back(osg::Vec3( 1.0,  1.0, -1.0));
-  v->push_back(osg::Vec3( 1.0,  1.0,  1.0));
-  v->push_back(osg::Vec3(-1.0, 1.0, 1.0));
-
-  v->push_back(osg::Vec3(1.0, -1.0, -1.0));
-  v->push_back(osg::Vec3(1.0, 1.0, -1.0));
-  v->push_back(osg::Vec3(1.0, 1.0, 1.0));
-  v->push_back(osg::Vec3(1.0, -1.0, 1.0));
-
-  v->push_back(osg::Vec3(-1.0, -1.0, -1.0));
-  v->push_back(osg::Vec3(1.0, -1.0, -1.0));
-  v->push_back(osg::Vec3(1.0, 1.0, -1.0));
-  v->push_back(osg::Vec3(1.0, -1.0, 1.0));
-
-  _geom->setVertexArray(v.get());
-  
-  osg::ref_ptr<osg::Vec4Array> c = new osg::Vec4Array();
-  for (int i = 0; i < 6; i++)
-  {
-    c->push_back(osg::Vec4(1.0, 0.0, 0.0, 1.0));
-    c->push_back(osg::Vec4(0.0, 1.0, 0.0, 1.0));
-    c->push_back(osg::Vec4(0.0, 0.0, 1.0, 1.0));
-    c->push_back(osg::Vec4(1.0, 1.0, 1.0, 1.0));
-  }
-  
-  _geom->setColorArray(c.get());
-  _geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
-
-  osg::ref_ptr<osg::Vec3Array> n = new osg::Vec3Array();//定义了一个法线绑定到该四方体中
-
-  n->push_back(osg::Vec3(0.0, -1.0, 0.0));//法线为指向Y轴负半轴
-  n->push_back(osg::Vec3(0.0,  1.0, 0.0));
-  n->push_back(osg::Vec3(1.0, 0.0, 0.0));
-  n->push_back(osg::Vec3(-1.0, 0.0, 0.0));
-  n->push_back(osg::Vec3(0.0, 0.0, -1.0));
-  n->push_back(osg::Vec3(0.0, 0.0, 1.0));
- // n->push_back(osg::Vec3(1.0, 0.0, 0.0));
-//  n->push_back(osg::Vec3(0.0, 0.0, 1.0));
-  _geom->setNormalArray(n.get());//添加法线到几何体中
-
-  _geom->setNormalBinding(osg::Geometry::BIND);//将法线进行绑定
-
-                                                      //设置顶点的关联方式，这里是Quad方式，总共有这么些方式：POINTS,LINES,LINE_STRIP,LINE_LOOP,TRIANGLES,TRIANGLE_STRIP,TRIANGLE_FAN,QUADS,QUAD_STRIP,POLYGON
-
-  _geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS, 0, 24));
-
-  geode = new osg::Geode;
-  geode->addDrawable(_geom.get());*/
-
 
 }
 

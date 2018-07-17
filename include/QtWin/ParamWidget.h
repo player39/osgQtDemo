@@ -7,9 +7,12 @@
 #include<QtWidgets/QPushButton>
 #include"ui_ParamWidget.h"
 #include"OSGLayer/ControlShow.h"
+
 class jyParamWidget :public QWidget
 {
+
   Q_OBJECT
+
 public:
   jyParamWidget(QObject *parent = Q_NULLPTR);
 
@@ -19,7 +22,6 @@ public slots:
   void slotEmitParamRsig();
   void slotEmitParamTsig();
   void slotEmitResetSig();
-  //void slottest();
 
 private:
   jyControlShow *m_pCon=NULL;

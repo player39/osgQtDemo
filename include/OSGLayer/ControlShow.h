@@ -1,6 +1,7 @@
 #ifndef _CONTROLSHOW_H
 #define _CONTROLSHOW_H
 #define _SCL_SECURE_NO_WARNINGS
+
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 #include <osgQt/GraphicsWindowQt>
@@ -26,7 +27,6 @@ public:
   osgQt::GraphicsWindowQt* CreatGraphicsWinQt(int x, int y, int w, int h,const std::string& name="",bool windowDecoration=false);
   QWidget *addViewWidget();
   void flashWindow();
-  //void changeGraphics();
   //提供qt层访问底层的接口
   jyOSGModel *returnOSGModel();
   //通过osg提供的变换矩阵 实现平移旋转拉伸 复位通过设置单位矩阵实现
@@ -40,10 +40,10 @@ private:
   osg::ref_ptr<osgQt::GraphicsWindowQt> m_pGraphics=NULL;
   osg::ref_ptr<osg::Node> m_pNode = NULL;
   //四个连接
-  boost::signals2::connection m_conStretching;
-  boost::signals2::connection m_conTranslate;
-  boost::signals2::connection m_conRotate;
-  boost::signals2::connection m_conreset;
+  boost::signals2::connection m_cConStretching;
+  boost::signals2::connection m_cConTranslate;
+  boost::signals2::connection m_cConRotate;
+  boost::signals2::connection m_cConreset;
   //存放用于显示的osg模型
   jyOSGModel *m_pModel;
 

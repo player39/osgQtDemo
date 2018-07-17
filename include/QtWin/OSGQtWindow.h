@@ -26,8 +26,8 @@ private:
   jyControlShow *m_pControl=NULL;
   //translate窗口控制旋转平移缩放
   jyParamWidget *m_pTranslateWidget=NULL;
+
 public slots:
- // void changeModel();
   //显示窗口
   void slotShowTranslateWidget();
   //改变底层数据的三个函数，还有一个复位函数将数据清零
@@ -35,10 +35,6 @@ public slots:
   void slotChangeTranslate(float _x, float _y, float _z);
   void slotChangeRotate(float _angle, float _x, float _y, float _z);
   void slotChangeParamReset();
-  //void slot
-signals:
-  
-
  
 };
 #endif // !_OSGQtWindow_H

@@ -1,6 +1,5 @@
 #include "..\..\include\QtWin\ParamWidget.h"
 
-
 void jyParamWidget::slotEmitParamRsig()
 {
   emit paramRotatePass(ui.lineEdit_angle->text().toFloat(), ui.lineEdit_rx->text().toFloat(), ui.lineEdit_ry->text().toFloat(), ui.lineEdit_rz->text().toFloat());
@@ -28,5 +27,4 @@ jyParamWidget::jyParamWidget(QObject *parent)
   connect(ui.pushButton_Stretchin, &QPushButton::clicked, this, &jyParamWidget::slotEmitParamSsig);
   connect(ui.pushButton_Rotate, &QPushButton::clicked, this, &jyParamWidget::slotEmitParamRsig);
   connect(ui.pushButton_reset, &QPushButton::clicked, this, &jyParamWidget::slotEmitResetSig);
- // connect(this, &jyParamWidget::paramStretchingPass, this, &jyParamWidget::slottest);
 }

@@ -1,5 +1,5 @@
 #include "..\..\include\QtWin\OSGQtWindow.h"
-#include <iostream>
+
 jyOSGQtWindow::jyOSGQtWindow(QWidget *parent)
 {
   //初始化将graphics设置到widget
@@ -16,7 +16,6 @@ jyOSGQtWindow::jyOSGQtWindow(QWidget *parent)
   m_pFlushTime = new QTimer();
   m_pFlushTime->start(40);
   connect(m_pFlushTime, &QTimer::timeout, this, static_cast<void (QMainWindow::*)()>(&QMainWindow::update));
-  // connect(ui.QAction_Open, &QAction::triggered, this, &jyOSGQtWindow::changeModel);
   connect(ui.QAction_Translate, &QAction::triggered, this, &jyOSGQtWindow::slotShowTranslateWidget);
 }
 
@@ -30,7 +29,7 @@ void jyOSGQtWindow::slotShowTranslateWidget()
   //记得之后设置关闭窗口后解除槽函数等等操作
   m_pTranslateWidget = new jyParamWidget(this);
   m_pTranslateWidget->show();
-  //绑定槽函数操纵底层数据
+  //绑定槽函数操纵底层数据,在ParamWidget窗口销毁掉以后需要解除绑定吗
   connect(m_pTranslateWidget, &jyParamWidget::paramStretchingPass, this,&jyOSGQtWindow::slotChangeStretching);
   connect(m_pTranslateWidget, &jyParamWidget::paramRotatePass, this, &jyOSGQtWindow::slotChangeRotate);
   connect(m_pTranslateWidget, &jyParamWidget::paramTranslate, this, &jyOSGQtWindow::slotChangeTranslate);
@@ -56,9 +55,4 @@ void jyOSGQtWindow::slotChangeParamReset()
 {
   m_pControl->returnOSGModel()->returnModelData()->ResetParam();
 }
-/*
-void jyOSGQtWindow::changeModel()
-{
-  //test
-  m_pControl->changeGraphics();
-}*/
+

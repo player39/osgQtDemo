@@ -5,7 +5,6 @@ jyModelData::jyModelData()
 {
   //存三个面,其余三个通过变换得到
   float _temPoint[12][3] = {
-    
     { 1.0,-1.0,-1.0},{1.0, 1.0,-1.0},{ 1.0, 1.0, 1.0},{ 1.0,-1.0,1.0},
     { -1.0,-1.0,-1.0 },{ 1.0,-1.0,-1.0 },{ 1.0,-1.0, 1.0 },{ -1.0,-1.0,1.0 },
     {-1.0,-1.0,-1.0},{1.0,-1.0,-1.0},{ 1.0, 1.0,-1.0},{-1.0,1.0,-1.0}
@@ -21,19 +20,8 @@ jyModelData::jyModelData()
       ++_k;
     }
   }
-  //旋转角度平移缩放量
 }
-
-point **jyModelData::renturnPoint()
-{
-  return (point **)m_pPoint;
-}
-
-changeData * jyModelData::returnSignal()
-{
-  return nullptr;
-}
-
+//数据改变后发出一个信号
 void jyModelData::ChangeStretching(float _X, float _Y, float _Z)
 {
   m_sStrenching._x = _X;
@@ -53,17 +41,17 @@ void jyModelData::ChangeRotate(float _Angle, float _X, float _Y, float _Z)
 
 void jyModelData::ChangeTranslate(float _X, float _Y, float _Z)
 {
-  m_translate._x = _X;
-  m_translate._y = _Y;
-  m_translate._z = _Z;
+  m_tTranslate._x = _X;
+  m_tTranslate._y = _Y;
+  m_tTranslate._z = _Z;
   m_tTranslateSignal();
 }
 
 void jyModelData::ResetParam()
 {
-  m_translate._x = 0;
-  m_translate._y = 0;
-  m_translate._z = 0;
+  m_tTranslate._x = 0;
+  m_tTranslate._y = 0;
+  m_tTranslate._z = 0;
   m_rRotate._angle = 0;
   m_rRotate._x = 0;
   m_rRotate._y = 0;
@@ -86,5 +74,5 @@ rotateAngle jyModelData::returnRotate()
 
 translate jyModelData::returntranslate()
 {
-  return m_translate;
+  return m_tTranslate;
 }
