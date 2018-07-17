@@ -20,6 +20,7 @@ typedef boost::signals2::signal<void()>::slot_type slotType;
 
 class jyControlShow :public QObject
 {
+
   Q_OBJECT
 
 public:

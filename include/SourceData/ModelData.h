@@ -62,10 +62,10 @@ public:
   translate returntranslate();
 
 private:
+  //boost–≈∫≈
   rotateAngle m_rRotate;
   strenching m_sStrenching;
   translate m_tTranslate;
-  //boost–≈∫≈
 
 };
 

@@ -17,11 +17,12 @@ jyOSGQtWindow::jyOSGQtWindow(QWidget *parent)
   m_pFlushTime->start(40);
   connect(m_pFlushTime, &QTimer::timeout, this, static_cast<void (QMainWindow::*)()>(&QMainWindow::update));
   connect(ui.QAction_Translate, &QAction::triggered, this, &jyOSGQtWindow::slotShowTranslateWidget);
+
 }
 
 void jyOSGQtWindow::paintEvent(QPaintEvent * event)
 {
-  m_pControl->flashWindow();
+  m_pControl->flashWindow(); 
 }
 
 void jyOSGQtWindow::slotShowTranslateWidget()
@@ -55,4 +56,5 @@ void jyOSGQtWindow::slotChangeParamReset()
 {
   m_pControl->returnOSGModel()->returnModelData()->ResetParam();
 }
+
 

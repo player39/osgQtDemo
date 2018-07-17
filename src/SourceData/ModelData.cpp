@@ -1,6 +1,5 @@
 #include "SourceData/ModelData.h"
 
-
 jyModelData::jyModelData()
 {
   //存三个面,其余三个通过变换得到

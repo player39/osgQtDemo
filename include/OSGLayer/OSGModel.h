@@ -11,6 +11,7 @@
 
 class jyOSGModel
 {
+
 public:
   jyOSGModel();
   osg::ref_ptr<osg::MatrixTransform> returnRoot();
@@ -22,6 +23,7 @@ private:
   //纯C++和boost实现的底层数据，修改底层数据时通过boost signals2发送一个信号在这个类中接收 实习伸缩，平移，旋转的效果
   jyModelData *m_pModelData=NULL;
   osg::ref_ptr<osg::MatrixTransform> m_pRoot = NULL;
+
 };
 
 #endif // !_OSGMODEL_H

@@ -1,7 +1,5 @@
 #include "..\..\include\OSGLayer\ControlShow.h"
 
-
-
 jyControlShow::jyControlShow(QObject *parent) {
   
 }
@@ -19,7 +17,6 @@ osgQt::GraphicsWindowQt * jyControlShow::CreatGraphicsWinQt(int x, int y, int w,
   traits->width = w;
   traits->height = h;
   traits->doubleBuffer = true;
- 
   //alpha通道？表示灰度级？
   /*
   traits->alpha = ds->getMinimumNumAlphaBits();
@@ -30,7 +27,6 @@ osgQt::GraphicsWindowQt * jyControlShow::CreatGraphicsWinQt(int x, int y, int w,
   traits->sampleBuffers = ds->getNumMultiSamples();
   */
   m_pGraphics = new osgQt::GraphicsWindowQt(traits.get());
- // return new osgQt::GraphicsWindowQt(traits.get());
   return m_pGraphics;
 }
 //负责显示这一层，传入的参数从数据层获取应该会变成group或者translate
