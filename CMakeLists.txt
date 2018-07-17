@@ -8,7 +8,7 @@ find_package(Qt5Core)
 find_package(Qt5Gui)
 find_package(OpenSceneGraph 3.0.0 REQUIRED osgDB osgGA osgUtil osgText osgViewer osgWidget)
 find_package(osgqt)
-find_package(gtest)
+#find_package(gtest)
 find_package(Qt5OpenGL)
 find_package(Boost)
 include_directories(
