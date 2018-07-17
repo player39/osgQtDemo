@@ -1,5 +1,9 @@
 #include "..\..\include\QtWin\ParamWidget.h"
 
+jyParamWidget::~jyParamWidget()
+{
+}
+
 void jyParamWidget::slotEmitParamRsig()
 {
   emit paramRotatePass(ui.lineEdit_angle->text().toFloat(), ui.lineEdit_rx->text().toFloat(), ui.lineEdit_ry->text().toFloat(), ui.lineEdit_rz->text().toFloat());

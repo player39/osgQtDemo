@@ -16,7 +16,7 @@ class jyParamWidget :public QWidget
 
 public:
   jyParamWidget(QObject *parent = Q_NULLPTR);
-
+  ~jyParamWidget();
 public slots:
   //发送4个信号三个更改数据一个reset在主窗口中接收 以此更改底层数据
   void slotEmitParamSsig();

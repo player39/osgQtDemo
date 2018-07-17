@@ -22,9 +22,19 @@ jyOSGQtWindow::jyOSGQtWindow(QWidget *parent)
 
 }
 
+jyOSGQtWindow::~jyOSGQtWindow()
+{
+
+}
+
 void jyOSGQtWindow::paintEvent(QPaintEvent * event)
 {
   m_pControl->flashWindow(); 
+}
+
+void jyOSGQtWindow::closeEvent(QCloseEvent *event)
+{
+  m_pTranslateWidget->close();
 }
 
 void jyOSGQtWindow::slotShowTranslateWidget()

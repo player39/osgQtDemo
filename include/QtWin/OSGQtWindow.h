@@ -15,10 +15,11 @@ class jyOSGQtWindow :public QMainWindow
   Q_OBJECT
 public:
   jyOSGQtWindow(QWidget *parent = Q_NULLPTR);
+  ~jyOSGQtWindow();
 
 protected:
   virtual void paintEvent(QPaintEvent *event);
-
+  virtual void closeEvent(QCloseEvent *event);
 private:
   //设定定时器 每过一定时间刷新一次 显示控制效果
   QTimer *m_pFlushTime=NULL;
