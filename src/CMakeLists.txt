@@ -1,4 +1,4 @@
-add_subdirectory(SourceData)
-add_subdirectory(QtWin)
-add_subdirectory(OSGLayer)
+add_subdirectory(Constrol)
+add_subdirectory(Model)
+add_subdirectory(Viewer)
 #add_subdirectory(gtest)
