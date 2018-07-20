@@ -29,3 +29,18 @@ void jyControlGroup::settRectangleRotate(float _Angle, float _x, float _y, float
 void jyControlGroup::settRectangleTranslate(float _x, float _y, float _z)
 {
 }
+
+void jyControlGroup::setDataRotate(float _r, float _x, float _y, float _z)
+{
+  getSourceData()->ChangeRotate(_r, _x, _y, _z);
+  this->sigRotate();
+}
+
+void jyControlGroup::setDataStretching(float _x, float _y, float _z)
+{
+}
+
+void jyControlGroup::setDataTranslate(float _x, float _y, float _z)
+{
+}
+

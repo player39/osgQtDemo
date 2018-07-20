@@ -15,27 +15,32 @@ class jyOSGModel
 
 public:
   jyOSGModel();
-  osg::ref_ptr<osg::MatrixTransform> returnRoot();
-  //提供QT层访问底层数据的接口
-  jyModelData *returnModelData();
+  //拿到根节点，osg有内置的遍历器 节点多的时候应该使用遍历器
+  osg::ref_ptr<osg::MatrixTransform> getRoot();
+  osg::ref_ptr<osg::MatrixTransform> getRecRoot();
+  osg::ref_ptr<osg::MatrixTransform> getLineMatrixGroup();
+  osg::ref_ptr<osg::MatrixTransform> getRecMatrixGroup();
+  //绑定数据源
   void setModelData(jyModelData *_data);
   jyModelData * getModelData();
+  //初始化Model
   void initModel();
-  //get/set访问器
-  void setLineMatrixTransform();
-  void setRectangle();
-
-  osg::ref_ptr<osg::MatrixTransform> getLineMatrixGroup();
+  //初始化另一视图的模型
+  void setRecModel();
 
 private:
+  //正六面体
   osg::ref_ptr<osg::Geode> geode=NULL;
+  //线段
   osg::ref_ptr<osg::Geode> m_pLineGeode = NULL;
-  //纯C++和boost实现的底层数据，修改底层数据时通过boost signals2发送一个信号在这个类中接收 实习伸缩，平移，旋转的效果
-  jyModelData *m_pModelData=NULL;
   osg::ref_ptr<osg::MatrixTransform> m_pRoot = NULL;
   osg::ref_ptr<osg::MatrixTransform> m_pLine = NULL;
   osg::ref_ptr<osg::MatrixTransform> m_pRectangle = NULL;
-
+  //属于另一视图三角形的节点
+  osg::ref_ptr<osg::Geode> m_pRecGeode = NULL;
+  osg::ref_ptr<osg::MatrixTransform> m_pRecMatrix = NULL;
+  //底层数据
+  jyModelData *m_pModelData = NULL;
 };
 
 #endif // !_OSGMODEL_H

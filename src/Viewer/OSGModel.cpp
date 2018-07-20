@@ -5,14 +5,14 @@ jyOSGModel::jyOSGModel()
  
 }
 
-osg::ref_ptr<osg::MatrixTransform> jyOSGModel::returnRoot()
+osg::ref_ptr<osg::MatrixTransform> jyOSGModel::getRoot()
 {
   return m_pRoot.get();
 }
 
-jyModelData * jyOSGModel::returnModelData()
+osg::ref_ptr<osg::MatrixTransform> jyOSGModel::getRecRoot()
 {
-  return m_pModelData;
+  return m_pRecMatrix.get();
 }
 
 void jyOSGModel::setModelData(jyModelData * _data)
@@ -198,17 +198,44 @@ void jyOSGModel::initModel()
   _LineGeome->setColorArray(_color.get());
   _LineGeome->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
   m_pLineGeode->addDrawable(_LineGeome.get());
-}
 
-void jyOSGModel::setLineMatrixTransform()
-{
-}
-
-void jyOSGModel::setRectangle()
-{
+  setRecModel();
 }
 
 osg::ref_ptr<osg::MatrixTransform> jyOSGModel::getLineMatrixGroup()
 {
   return m_pLine;
+}
+
+osg::ref_ptr<osg::MatrixTransform> jyOSGModel::getRecMatrixGroup()
+{
+  return m_pRecMatrix;
+}
+
+void jyOSGModel::setRecModel()
+{
+  m_pRecMatrix = new osg::MatrixTransform();
+  m_pRecGeode = new osg::Geode();
+  osg::ref_ptr<osg::Geometry> _geom = new osg::Geometry();
+  osg::ref_ptr<osg::Vec3Array> _point = new osg::Vec3Array();
+  m_pRecMatrix->addChild(m_pRecGeode);
+ // m_pRecMatrix->addChild(_geom);
+  for (int i = 0; i < 3; i++)
+  {
+    _point->push_back(osg::Vec3(getModelData()->m_pRec[i]._x, getModelData()->m_pRec[i]._y, getModelData()->m_pRec[i]._z));
+  }
+  _geom->setVertexArray(_point.get());
+  osg::ref_ptr<osg::Vec3Array> _line = new osg::Vec3Array();
+  _line->push_back(osg::Vec3(0, -1, 0));
+  _geom->setNormalArray(_line.get());
+  _geom->setNormalBinding(osg::Geometry::BIND_OVERALL);
+  _geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::TRIANGLES, 0, 3));
+  osg::ref_ptr<osg::Vec4Array> _color = new osg::Vec4Array();
+  _color->push_back(osg::Vec4(1.0, 0.0, 0.0, 1.0));
+  _color->push_back(osg::Vec4(0.0, 1.0, 0.0, 1.0));
+  _color->push_back(osg::Vec4(0.0, 0.0, 1.0, 1.0));
+  _geom->setColorArray(_color);
+  _geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
+  m_pRecGeode->addDrawable(_geom.get());
+ 
 }

@@ -2,6 +2,18 @@
 
 jyModelData::jyModelData()
 {
+  //Rec
+  m_pRec[0]._x = -1;
+  m_pRec[0]._y = 0;
+  m_pRec[0]._z = 0;
+
+  m_pRec[1]._x = 1;
+  m_pRec[1]._y = 0;
+  m_pRec[1]._z = 0;
+
+  m_pRec[2]._x = 0;
+  m_pRec[2]._y = 0;
+  m_pRec[2]._z = 1.7;
   //Line
   m_pLine[0]._x = 2;
   m_pLine[0]._y = -2;
@@ -28,13 +40,12 @@ jyModelData::jyModelData()
     }
   }
 }
-//数据改变后发出一个信号
+
 void jyModelData::ChangeStretching(float _X, float _Y, float _Z)
 {
   m_sStrenching._x = _X;
   m_sStrenching._y = _Y;
   m_sStrenching._z = _Z;
- // m_sStrenchingSignal();
 }
 
 void jyModelData::ChangeRotate(float _Angle, float _X, float _Y, float _Z)
@@ -43,7 +54,6 @@ void jyModelData::ChangeRotate(float _Angle, float _X, float _Y, float _Z)
   m_rRotate._x = _X;
   m_rRotate._y = _Y;
   m_rRotate._z = _Z;
- // m_rRotateSignal();
 }
 
 void jyModelData::ChangeTranslate(float _X, float _Y, float _Z)
@@ -51,7 +61,6 @@ void jyModelData::ChangeTranslate(float _X, float _Y, float _Z)
   m_tTranslate._x = _X;
   m_tTranslate._y = _Y;
   m_tTranslate._z = _Z;
-//  m_tTranslateSignal();
 }
 
 void jyModelData::ChangeLineStretching(float _X, float _Y, float _Z)
@@ -76,6 +85,56 @@ void jyModelData::ChangeLineTranslate(float _X, float _Y, float _Z)
   m_tLineTranslate._z = _Z;
 }
 
+void jyModelData::ResetLineParam()
+{
+  m_tLineTranslate._x = 0;
+  m_tLineTranslate._y = 0;
+  m_tLineTranslate._z = 0;
+  m_rLineRotate._angle = 0;
+  m_rLineRotate._x = 0;
+  m_rLineRotate._y = 0;
+  m_rLineRotate._z = 0;
+  m_sLineStrenching._x = 0;
+  m_sLineStrenching._y = 0;
+  m_sLineStrenching._z = 0;
+}
+
+void jyModelData::ChangeRecStretching(float _X, float _Y, float _Z)
+{
+  m_sRecStretching._x = _X;
+  m_sRecStretching._y = _Y;
+  m_sRecStretching._z = _Z;
+}
+
+void jyModelData::ChangeRecRotate(float _Angle, float _X, float _Y, float _Z)
+{
+  m_rRecRotate._angle = _Angle;
+  m_rRecRotate._x = _X;
+  m_rRecRotate._y = _Y;
+  m_rRecRotate._z = _Z;
+}
+
+void jyModelData::ChangeRecTranslate(float _X, float _Y, float _Z)
+{
+  m_tRecTranslate._x = _X;
+  m_tRecTranslate._y = _Y;
+  m_tRecTranslate._z = _Z;
+}
+
+void jyModelData::ResetRecParam()
+{
+  m_tRecTranslate._x = 0;
+  m_tRecTranslate._y = 0;
+  m_tRecTranslate._z = 0;
+  m_rRecRotate._angle = 0;
+  m_rRecRotate._x = 0;
+  m_rRecRotate._y = 0;
+  m_rRecRotate._z = 0;
+  m_sRecStretching._x = 0;
+  m_sRecStretching._y = 0;
+  m_sRecStretching._z = 0;
+}
+
 void jyModelData::ResetParam()
 {
   m_tTranslate._x = 0;
@@ -88,7 +147,6 @@ void jyModelData::ResetParam()
   m_sStrenching._x = 0;
   m_sStrenching._y = 0;
   m_sStrenching._z = 0;
-  //m_Reset();
 }
 
 stretching jyModelData::returnStrenching()
@@ -119,4 +177,19 @@ rotateAngle jyModelData::getLineRotate()
 translate jyModelData::getLineTranslate()
 {
   return m_tLineTranslate;
+}
+
+rotateAngle jyModelData::getRecRotate()
+{
+  return m_rRecRotate;
+}
+
+stretching jyModelData::getRecStretching()
+{
+  return m_sRecStretching;
+}
+
+translate jyModelData::getRecTranslate()
+{
+  return m_tRecTranslate;
 }

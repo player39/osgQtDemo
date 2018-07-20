@@ -15,22 +15,22 @@ class jyViewerBase :public osgViewer::Viewer
 
 public:
   jyViewerBase();
+  //实现qt和osg结合
   virtual osgQt::GraphicsWindowQt * creatGraphicsWinQt(int x, int y, int w, int h, const std::string& name = "", bool windowDecoration = false)=0;
   virtual QWidget * addWidget()=0;
-  //绑定方法
+  //绑定信号
   virtual void bindDataChangeSig()=0;
-  //接收到控制层发送来的底层数据更改信号，绑定这几个槽函数更新视图
-  void stretchingChange();
-  void rotateChange();
-  void translateChange();
-  void paramReset();
-
+  //接收到底层数据的信号后更新变换矩阵实现效果
+  virtual void stretchingChange();
+  virtual void rotateChange();
+  virtual void translateChange();
+  virtual void paramReset();
+  //get/set
   void setGraphics(osgQt::GraphicsWindowQt *Graphics);
-  osgQt::GraphicsWindowQt *getGranphics();
-  //get\set访问器
   void setModel(ModelType *modelData);
-  ModelType *  getModel();
   void setControl(controllerType *Control);
+  osgQt::GraphicsWindowQt *getGranphics();
+  ModelType *  getModel();
   controllerType *  getControl();
 
 private:
@@ -47,7 +47,7 @@ private:
   controllerType *m_pController;
 };
 
-#endif // !_VIEWERDELTA_H
+
 
 template<class controllerType, class ModelType>
 inline jyViewerBase<controllerType, ModelType>::jyViewerBase()
@@ -109,3 +109,4 @@ inline controllerType * jyViewerBase<controllerType, ModelType>::getControl()
 {
   return m_pController;
 }
+#endif // !_VIEWERDELTA_H

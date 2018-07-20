@@ -54,6 +54,7 @@ public:
   //顶点数据，矩形
   point m_pPoint[3][4];
   point m_pLine[2];
+  point m_pRec[3];
   //改变3个数据
   void ChangeStretching(float _X, float _Y, float _Z);
   void ChangeRotate(float _Angle, float _X, float _Y, float _Z);
@@ -63,15 +64,25 @@ public:
   void ChangeLineStretching(float _X, float _Y, float _Z);
   void ChangeLineRotate(float _Angle, float _X, float _Y, float _Z);
   void ChangeLineTranslate(float _X, float _Y, float _Z);
+  void ResetLineParam();
+  //改变矩形
+  void ChangeRecStretching(float _X, float _Y, float _Z);
+  void ChangeRecRotate(float _Angle, float _X, float _Y, float _Z);
+  void ChangeRecTranslate(float _X, float _Y, float _Z);
+  void ResetRecParam();
   
   //返回3个变换数据
   stretching returnStrenching();
   rotateAngle returnRotate();
   translate returntranslate();
-
+  //返回Line的变换数据
   stretching getLineStretching();
   rotateAngle getLineRotate();
   translate getLineTranslate();
+  //返回另一视图三角的变换数据
+  rotateAngle getRecRotate();
+  stretching getRecStretching();
+  translate getRecTranslate();
 
 private:
   //这里有一个问题 本来想用数组实现这样信号和槽函数的数量都会变少，只需要通过信号中的参数对应操作
@@ -83,8 +94,10 @@ private:
   rotateAngle m_rLineRotate;
   stretching m_sLineStrenching;
   translate m_tLineTranslate;
-  //这一组属于矩形
-
+  //这一组属于三角形
+  rotateAngle m_rRecRotate;
+  stretching m_sRecStretching;
+  translate m_tRecTranslate;
 };
 
 #endif // !_MODELDATA_H

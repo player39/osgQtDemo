@@ -18,7 +18,7 @@ QWidget * jyViewerGroup::addWidget()
 {
  // m_pModel = new jyOSGModel();
   m_pNode = new osg::Node;
-  m_pNode = this->getModel()->returnRoot();
+  m_pNode = this->getModel()->getRoot();
   //m_pNo1Viewer = new osgViewer::Viewer();
   const osgQt::GraphicsWindowQt::Traits *traits = this->getGranphics()->getTraits();
   osg::Camera *_temCamera =this->getCamera();
@@ -43,6 +43,13 @@ void jyViewerGroup::bindDataChangeSig()
   getControl()->sigLineStretching.connect(boost::bind(&jyViewerGroup::changeLineStretching, this));
   getControl()->sigLineTranslate.connect(boost::bind(&jyViewerGroup::changeLineTranslate, this));
   getControl()->sigLineReset.connect(boost::bind(&jyViewerGroup::changLineReset, this));
+  getControl()->sigRotate.connect(boost::bind(&jyViewerGroup::changeRotate, this));
+}
+
+void jyViewerGroup::changeRotate()
+{
+  osg::ref_ptr<osg::MatrixTransform> _temMatrix = getModel()->getRoot();
+  _temMatrix->setMatrix(_temMatrix->getMatrix()*osg::Matrix::rotate(osg::DegreesToRadians(getControl()->getSourceData()->returnRotate()._angle), getControl()->getSourceData()->returnRotate()._x, getControl()->getSourceData()->returnRotate()._y, getControl()->getSourceData()->returnRotate()._z));
 }
 
 void jyViewerGroup::changeLineRotate()
