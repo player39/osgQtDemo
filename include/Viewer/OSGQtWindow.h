@@ -6,12 +6,10 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QVBoxLayout>
 #include "ui_OSGQt.h"
-#include "Viewer/ViewerGroup.h"
 #include "Viewer/ParamWidget.h"
-#include "Viewer/ViewerRectangleGroup.h"
-#include "Control/ControlGroup.h"
+#include "Viewer/ViewBase.h"
 
-class jyOSGQtWindow :public QMainWindow
+class jyOSGQtWindow :public QMainWindow,public jyViewBase<jyControlWin>
 {
   Q_OBJECT
 public:

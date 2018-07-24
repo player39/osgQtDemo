@@ -9,7 +9,7 @@
 #include "Control/ControlGroup.h"
 #include "Control/ControlRecGroup.h"
 
-class jyParamWidget :public QWidget
+class jyParamWidget :public osg::Group, public xxxView
 {
 
   Q_OBJECT

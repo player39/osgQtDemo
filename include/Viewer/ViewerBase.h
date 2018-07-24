@@ -7,17 +7,20 @@
 #include <osgViewer/ViewerEventHandlers>
 #include <boost/signals2.hpp>
 #include "Viewer/OSGModel.h"
+#include "Viewer/ViewBase.h"
 
 template<class controllerType,class ModelType>
 
-class jyViewerBase :public osgViewer::Viewer
+class jyViewerBase :public osgViewer::Viewer,public::ViewBase<class controllerType,class ModelType>
 {
 
 public:
-  jyViewerBase();
+  jyViewerBase() :ViewBase<controllerType, ModelType>() {};
   //实现qt和osg结合
   virtual osgQt::GraphicsWindowQt * creatGraphicsWinQt(int x, int y, int w, int h, const std::string& name = "", bool windowDecoration = false)=0;
   virtual QWidget * addWidget()=0;
+  //实现视图更新
+  virtual void updataView();
   //绑定信号
   virtual void bindDataChangeSig()=0;
   //接收到底层数据的信号后更新变换矩阵实现效果
@@ -27,11 +30,7 @@ public:
   virtual void paramReset();
   //get/set
   void setGraphics(osgQt::GraphicsWindowQt *Graphics);
-  void setModel(ModelType *modelData);
-  void setControl(controllerType *Control);
   osgQt::GraphicsWindowQt *getGranphics();
-  ModelType *  getModel();
-  controllerType *  getControl();
 
 private:
   osg::ref_ptr<osgQt::GraphicsWindowQt> m_pGraphics = NULL;
@@ -52,6 +51,12 @@ private:
 template<class controllerType, class ModelType>
 inline jyViewerBase<controllerType, ModelType>::jyViewerBase()
 {
+}
+
+template<class controllerType, class ModelType>
+inline void jyViewerBase<controllerType, ModelType>::updataView()
+{
+  bindDataChangeSig();
 }
 
 template<class controllerType, class ModelType>
