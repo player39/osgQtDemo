@@ -1,5 +1,5 @@
 #ifndef _VIEWBASE_H
-#define  _VIEWBASE_H
+#define _VIEWBASE_H
 
 #include "boost/signals2.hpp"
 #include "boost/bind.hpp"
@@ -22,47 +22,47 @@ public:
   virtual void updataViewTranslate();
   virtual void updataViewRotate();
   virtual void updataViewReset();
-  //发送任务到控制器
-  virtual void TaskToController();
+  //绑定函数
+   boost::signals2::connection connectStretching(const slotType &type);
+   boost::signals2::connection connectRotate(const slotType &type);
+   boost::signals2::connection connectTranslate(const slotType &type);
+   boost::signals2::connection connectReset(const slotType &type);
   //初始化视图
   virtual void initView();
 
 private:
   ControlType *m_pController=NULL;
+  boost::signals2::connection m_conStretching;
+  boost::signals2::connection m_conTranslate;
+  boost::signals2::connection m_conRotate;
+  boost::signals2::connection m_conReset;
 };
 
-template<class ModelType, class ControlType>
-inline jyViewBase<ModelType, ControlType>::jyViewBase(ControlType *mControl)
+template<class ControlType>
+inline jyViewBase<ControlType>::jyViewBase(ControlType *mControl)
 {
   setController(mControl);
 }
 
-template<class ModelType, class ControlType>
-inline ModelType * jyViewBase<ModelType, ControlType>::getSouceData()
-{
-  return m_pSourceData;
-}
-
-template<class ModelType, class ControlType>
-inline ControlType * jyViewBase<ModelType, ControlType>::getController()
+template<class ControlType>
+inline ControlType * jyViewBase<ControlType>::getController()
 {
   return m_pController;
 }
 
-template<class ModelType, class ControlType>
-inline void jyViewBase<ModelType, ControlType>::setSouceData(ModelType *model)
-{
-  m_pSourceData = model;
-}
-
-template<class ModelType, class ControlType>
-inline void jyViewBase<ModelType, ControlType>::setController(ControlType * controller)
+template<class ControlType>
+inline void jyViewBase<ControlType>::setController(ControlType * controller)
 {
   m_pController = controller;
-  jyControllerBase::connectReset(updataViewReset);
-  jyControllerBase::connectTranslate(updataViewTranslate);
-  jyControllerBase::connectRotate(updataViewRotate);
-  jyControllerBase::connectStretching(updataViewStretching);
+  m_conStretching.disconnect();
+  m_conTranslate.disconnect();
+  m_conRotate.disconnect();
+  m_conReset.disconnect();
+ // m_pController->getSigRotate().connect(boost::bind(&jyViewBase::updataViewRotate, this));
+  m_conStretching = connectStretching(boost::bind(&jyViewBase::updataViewStretching,this));
+  m_conTranslate = connectTranslate(boost::bind(&jyViewBase::updataViewTranslate, this));
+  m_conRotate = connectRotate(boost::bind(&jyViewBase::updataViewRotate, this));
+  m_conReset = connectReset(boost::bind(&jyViewBase::updataViewReset, this));
 }
 
 template<class ControlType>
@@ -85,13 +85,32 @@ inline void jyViewBase<ControlType>::updataViewReset()
 {
 }
 
-template<class ModelType, class ControlType>
-inline void jyViewBase<ModelType, ControlType>::TaskToController()
+template<class ControlType>
+inline boost::signals2::connection jyViewBase<ControlType>::connectStretching(const slotType & type)
 {
+  return m_pController->getSigStretching().connect(type);
 }
 
-template<class ModelType, class ControlType>
-inline void jyViewBase<ModelType, ControlType>::initView()
+template<class ControlType>
+inline boost::signals2::connection jyViewBase<ControlType>::connectRotate(const slotType & type)
+{
+  return m_pController->getSigRotate().connect(type);
+}
+
+template<class ControlType>
+inline boost::signals2::connection jyViewBase<ControlType>::connectTranslate(const slotType & type)
+{
+  return m_pController->getSigTranslate().connect(type);
+}
+
+template<class ControlType>
+inline boost::signals2::connection jyViewBase<ControlType>::connectReset(const slotType & type)
+{
+  return m_pController->getSigReset().connect(type);
+}
+
+template<class ControlType>
+inline void jyViewBase<ControlType>::initView()
 {
 }
 

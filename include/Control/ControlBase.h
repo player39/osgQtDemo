@@ -3,6 +3,7 @@
 
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
+#include <boost/function.hpp>
 #include "Model/Pixel.h"
 #include "Viewer/ViewBase.h"
 
@@ -13,27 +14,28 @@ class jyControllerBase
 {
 public:
   jyControllerBase();
-  friend class jyViewerBase;
-  boost::signals2::connection connectStretching(slotType &type);
-  boost::signals2::connection connectRotate(slotType &type);
-  boost::signals2::connection connectTranslate(slotType &type);
-  boost::signals2::connection connectReset(slotType &type);
-
+  //返回信号的引用 在View中进行绑定
+  boostSig& getSigStretching();
+  boostSig& getSigTranslate();
+  boostSig& getSigRotate();
+  boostSig& getSigReset();
+  //返回矩阵
   stretching getStretching();
   translate getTranslate();
   rotateAngle getRotate();
-
+  //对矩阵的操作
   void setStretching(float _X, float _Y, float _Z);
   void setTranslate(float _X, float _Y, float _Z);
   void setRotate(float _Angle, float _X, float _Y, float _Z);
   void Reset();
 
 private:
-  boostSig sig_Stretching;
+  //信号
   boostSig sig_Rotate;
+  boostSig sig_Stretching;
   boostSig sig_Translate;
   boostSig sig_Reset;
-  //
+  //矩阵
   stretching m_sStretching;
   translate m_tTranslate;
   rotateAngle m_rRotate;

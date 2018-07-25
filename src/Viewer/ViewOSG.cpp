@@ -1,5 +1,12 @@
 #include "Viewer/ViewOSG.h"
 
+jyViewOSG::jyViewOSG(jyControlOSG * mControl):jyViewBase<jyControlOSG>(mControl)
+{
+  m_pDelta = new jyViewDelta(this->getController()->getControlDelta());
+  m_pRec = new jyViewRec(this->getController()->getControlRec());
+  m_pRoot = new osg::MatrixTransform;
+}
+
 void jyViewOSG::creatGraphicsWinQt(int x, int y, int w, int h, const std::string & name, bool windowDecoration)
 {
   osg::ref_ptr<osg::GraphicsContext::Traits> traits = new osg::GraphicsContext::Traits;
@@ -15,9 +22,10 @@ void jyViewOSG::creatGraphicsWinQt(int x, int y, int w, int h, const std::string
 
 QWidget * jyViewOSG::addWidget()
 {
+  m_pViewer = new osgViewer::Viewer;
   m_pNode = new osg::Node;
   m_pNode = m_pRoot;
-  m_pRoot->addChild(m_pDelta->getRoot());
+  m_pRoot->addChild(m_pDelta->getRoot().get());
   m_pRoot->addChild(m_pRec->getRoot());
   //m_pNo1Viewer = new osgViewer::Viewer();
   const osgQt::GraphicsWindowQt::Traits *traits = this->getGraphics()->getTraits();
@@ -32,14 +40,20 @@ QWidget * jyViewOSG::addWidget()
   m_pViewer->setCameraManipulator(new osgGA::TrackballManipulator);
   //设置线程模式
   m_pViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
-
-  //绑定成员变量就是这个格式
   return m_pGraphics->getGLWidget();
 }
 
 osgQt::GraphicsWindowQt * jyViewOSG::getGraphics()
 {
   return m_pGraphics;
+}
+
+void jyViewOSG::ViewerFlush()
+{
+  if (m_pViewer != NULL)
+  {
+    m_pViewer->frame();
+  }
 }
 
 void jyViewOSG::setGraphics(osgQt::GraphicsWindowQt *mGraphics)

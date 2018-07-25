@@ -31,7 +31,22 @@ void jyViewDelta::updataViewRotate()
   m_pDeltaRoot->setMatrix(m_pDeltaRoot->getMatrix()*osg::Matrix::rotate(osg::DegreesToRadians(getController()->getRotate()._angle), getController()->getRotate()._x, getController()->getRotate()._y, getController()->getRotate()._z));
 }
 
+void jyViewDelta::updataViewStretching()
+{
+  m_pDeltaRoot->setMatrix(m_pDeltaRoot->getMatrix()*osg::Matrix::scale(getController()->getStretching()._x, getController()->getStretching()._y, getController()->getStretching()._z));
+}
+
+void jyViewDelta::updataViewTranslate()
+{
+  m_pDeltaRoot->setMatrix(m_pDeltaRoot->getMatrix()*osg::Matrix::translate(getController()->getTranslate()._x, getController()->getTranslate()._y, getController()->getTranslate()._z));
+}
+
+void jyViewDelta::updataViewReset()
+{
+  m_pDeltaRoot->setMatrix(osg::Matrix());
+}
+
 osg::ref_ptr<osg::MatrixTransform> jyViewDelta::getRoot()
 {
-  return m_pDeltaRoot;
+  return m_pDeltaRoot.get();
 }

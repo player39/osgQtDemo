@@ -6,40 +6,30 @@
 #include<QtWidgets/QLabel>
 #include<QtWidgets/QPushButton>
 #include"ui_ParamWidget.h"
-#include "Control/ControlGroup.h"
-#include "Control/ControlRecGroup.h"
+#include "Control/ControlWidget.h"
 
-class jyParamWidget :public osg::Group, public xxxView
+class jyParamWidget :public QWidget,public jyViewBase<jyControlWidget>
 {
 
   Q_OBJECT
 
 public:
-  jyParamWidget(jyControlGroup* controller, QObject *parent = Q_NULLPTR);
-  ~jyParamWidget();
-  void setControl(jyControlGroup* controller);
-  void setRecControl(jyControlRecGroup* controller);
-  jyControlGroup *getControl();
-  jyControlRecGroup *getRecControl();
+  jyParamWidget(jyControlWidget *mControl,QObject *parent = Q_NULLPTR);
 
 public slots:
+  //三角
+  void slotChangeDeltaStretching();
+  void slotChangeDeltaRotate();
+  void slotChangeDeltaTranslate();
+  void slotDeltaReset();
   //线段
-  void slotChangeStretching();
-  void slotChangeRotate();
-  void slotChangeTranslate();
-  void slotReset();
-  //根节点
-  void slotChangeDataStretching();
-  void slotChangeDataRotate();
-  void slotChangeDataTranslate();
-  void slotDateReset();
-  //另一视图
-  void slotChangeRootRotate();
+  void slotChangeLineStretching();
+  void slotChangeLineRotate();
+  void slotChangeLineTranslate();
+  void slotLineReset(); 
 
 private:
   Ui::ParamWidget ui;
-  jyControlGroup *m_pControl=NULL;
-  jyControlRecGroup *m_pControlRec = NULL;
 };
 
 

@@ -15,11 +15,12 @@ class jyViewOSG :public jyViewBase<jyControlOSG>
 {
 
 public:
-  jyViewOSG(jyControlOSG *mControl) :jyViewBase<jyControlOSG>(mControl) {m_pViewer=new osgViewer::Viewer};
+  jyViewOSG(jyControlOSG *mControl);
   void creatGraphicsWinQt(int x, int y, int w, int h, const std::string& name = "", bool windowDecoration = false);
   QWidget * addWidget();
   void setGraphics(osgQt::GraphicsWindowQt* mGraphics);
   osgQt::GraphicsWindowQt* getGraphics();
+  void ViewerFlush();
 
 private:
   //将子节点保存到osgViewer中展示
@@ -32,4 +33,4 @@ private:
 
 };
 
-#endif
+#endif //_VIEWOSG_H

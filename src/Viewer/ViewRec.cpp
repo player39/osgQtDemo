@@ -26,7 +26,22 @@ void jyViewRec::initView()
 
 void jyViewRec::updataViewRotate()
 {
-  m_pRecRoot->setMatrix(m_pRecRoot->getMatrix()*osg::Matrix::rotate(osg::RadiansToDegrees(getController()->getRotate()._angle), getController()->getRotate()._x, getController()->getRotate()._y, getController()->getRotate()._z));
+  m_pRecRoot->setMatrix(m_pRecRoot->getMatrix()*osg::Matrix::rotate(osg::DegreesToRadians(getController()->getRotate()._angle), getController()->getRotate()._x, getController()->getRotate()._y, getController()->getRotate()._z));
+}
+
+void jyViewRec::updataViewStretching()
+{
+  m_pRecRoot->setMatrix(m_pRecRoot->getMatrix()*osg::Matrix::scale(getController()->getStretching()._x, getController()->getStretching()._y, getController()->getStretching()._z));
+}
+
+void jyViewRec::updataViewTranslate()
+{
+  m_pRecRoot->setMatrix(m_pRecRoot->getMatrix()*osg::Matrix::translate(getController()->getTranslate()._x, getController()->getTranslate()._y, getController()->getTranslate()._z));
+}
+
+void jyViewRec::updataViewReset()
+{
+  m_pRecRoot->setMatrix(osg::Matrix());
 }
 
 osg::ref_ptr<osg::MatrixTransform> jyViewRec::getRoot()
